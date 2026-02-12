@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_SRVB" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <SRVB>
+    <NAME>ZS_PO_PRICE_ADJ_O4</NAME>
+    <TYPE>SRVB/SVB</TYPE>
+    <DESCRIPTION>PO Price Adjustment - OData V4 Service Binding</DESCRIPTION>
+    <DESCRIPTION_TEXT_LIMIT>60</DESCRIPTION_TEXT_LIMIT>
+    <LANGUAGE>EN</LANGUAGE>
+    <MASTER_LANGUAGE>EN</MASTER_LANGUAGE>
+   </SRVB>
+  </asx:values>
+ </asx:abap>
+</abapGit>
