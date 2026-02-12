@@ -4,13 +4,10 @@
 annotate entity ZC_PO_PRICE_EDIT with
 {
   @UI.facet: [
-    { id: 'POHeaderInfo', type: #COLLECTION, label: 'PO 정보', position: 10 },
-    { id: 'GeneralInfo', parentId: 'POHeaderInfo', type: #FIELDGROUP_REFERENCE,
-      targetQualifier: 'General', label: '일반', position: 10 },
-    { id: 'POItems', type: #LINEITEM_REFERENCE, label: 'PO 아이템', position: 20, targetElement: '_Item' }
+    { id: 'POItems', type: #LINEITEM_REFERENCE, label: 'PO 아이템', position: 10, targetElement: '_Item' }
   ]
 
-  @UI: { lineItem: [{ position: 10 }], selectionField: [{ position: 10 }], fieldGroup: [{ qualifier: 'General', position: 10 }] }
+  @UI: { lineItem: [{ position: 10 }], selectionField: [{ position: 10 }] }
   PurchaseOrder;
 
   @UI: { lineItem: [{ position: 20 }], selectionField: [{ position: 20 }] }

@@ -1,0 +1,14 @@
+projection;
+strict ( 2 );
+
+define behavior for ZC_PO_PRICE_EDIT alias POHeader
+{
+  use association _Item { create; }
+}
+
+define behavior for ZC_PO_ITEM_PRICE_EDIT alias POItem
+{
+  use update;
+
+  use association _Header;
+}
