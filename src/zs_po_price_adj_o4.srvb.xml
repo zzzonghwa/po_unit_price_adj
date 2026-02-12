@@ -4,8 +4,7 @@
   <asx:values>
    <SRVB>
     <SRVB_NAME>ZS_PO_PRICE_ADJ_O4</SRVB_NAME>
-    <LANGU>E</LANGU>
-    <DDTEXT>PO Price Adjustment - Service Binding OData V4</DDTEXT>
+    <SHORT_DESCR>PO Price Adjustment - Service Binding OData V4</SHORT_DESCR>
    </SRVB>
   </asx:values>
  </asx:abap>

@@ -4,8 +4,7 @@
   <asx:values>
    <BDEF>
     <BDEF_NAME>ZC_PO_PRICE_ADJ_I</BDEF_NAME>
-    <DDLANGUAGE>E</DDLANGUAGE>
-    <DDTEXT>PO Price Adjustment - Behavior Definition</DDTEXT>
+    <SHORT_DESCR>PO Price Adjustment - Behavior Definition</SHORT_DESCR>
    </BDEF>
   </asx:values>
  </asx:abap>

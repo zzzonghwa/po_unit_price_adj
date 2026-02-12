@@ -4,8 +4,7 @@
   <asx:values>
    <SRVD>
     <SRVD_NAME>ZS_PO_PRICE_ADJ</SRVD_NAME>
-    <LANGU>E</LANGU>
-    <DDTEXT>PO Price Adjustment - Service Definition</DDTEXT>
+    <SHORT_DESCR>PO Price Adjustment - Service Definition</SHORT_DESCR>
    </SRVD>
   </asx:values>
  </asx:abap>
