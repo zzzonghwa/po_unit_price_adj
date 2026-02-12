@@ -1,0 +1,31 @@
+managed with unmanaged save implementation in class ZBP_I_PO_PRICE_EDIT unique;
+strict ( 2 );
+
+define behavior for ZI_PO_PRICE_EDIT alias POHeader
+lock master
+authorization master ( global )
+{
+  field ( readonly ) PurchaseOrder, PurchaseOrderType, CompanyCode,
+  PurchasingOrganization, Supplier, DocumentCurrency,
+  PurchaseOrderDate, CreatedByUser, CreationDate;
+
+  association _Item { create; }
+}
+
+define behavior for ZI_PO_ITEM_PRICE_EDIT alias POItem
+lock dependent by _Header
+authorization dependent by _Header
+{
+  field ( readonly ) PurchaseOrder, PurchaseOrderItem, Material,
+  PurchaseOrderItemText, Plant, StorageLocation,
+  OrderQuantity, PurchaseOrderQuantityUnit,
+  NetPriceQuantity, OrderPriceUnit, DocumentCurrency;
+
+  field ( mandatory ) NetPriceAmount;
+
+  validation validatePrice on save { field NetPriceAmount; }
+
+  update;
+
+  association _Header;
+}

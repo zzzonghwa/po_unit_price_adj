@@ -1,0 +1,30 @@
+@Metadata.layer: #CUSTOMER
+@UI.headerInfo: { typeName: 'Purchase Order', typeNamePlural: 'Purchase Orders',
+                  title.value: 'PurchaseOrder', description.value: 'Supplier' }
+annotate entity ZC_PO_PRICE_EDIT with
+{
+  @UI.facet: [
+    { id: 'POHeaderInfo', type: #COLLECTION, label: 'PO 정보', position: 10 },
+    { id: 'GeneralInfo', parentId: 'POHeaderInfo', type: #FIELDGROUP_REFERENCE,
+      targetQualifier: 'General', label: '일반', position: 10 },
+    { id: 'POItems', type: #LINEITEM_REFERENCE, label: 'PO 아이템', position: 20, targetElement: '_Item' }
+  ]
+
+  @UI: { lineItem: [{ position: 10 }], selectionField: [{ position: 10 }], fieldGroup: [{ qualifier: 'General', position: 10 }] }
+  PurchaseOrder;
+
+  @UI: { lineItem: [{ position: 20 }], selectionField: [{ position: 20 }] }
+  PurchaseOrderType;
+
+  @UI: { lineItem: [{ position: 30 }], selectionField: [{ position: 30 }] }
+  PurchasingOrganization;
+
+  @UI: { lineItem: [{ position: 40 }], selectionField: [{ position: 40 }] }
+  Supplier;
+
+  @UI: { lineItem: [{ position: 50 }] }
+  DocumentCurrency;
+
+  @UI: { lineItem: [{ position: 60 }], selectionField: [{ position: 50 }] }
+  PurchaseOrderDate;
+}

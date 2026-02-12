@@ -1,0 +1,6 @@
+CLASS zbp_i_po_price_edit DEFINITION PUBLIC ABSTRACT FINAL FOR BEHAVIOR OF zi_po_price_edit.
+ENDCLASS.
+
+CLASS zbp_i_po_price_edit IMPLEMENTATION.
+ENDCLASS.
+

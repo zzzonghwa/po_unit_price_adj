@@ -1,0 +1,27 @@
+@Metadata.layer: #CUSTOMER
+@UI.headerInfo: { typeName: 'PO Item', typeNamePlural: 'PO Items',
+                  title.value: 'PurchaseOrderItem', description.value: 'Material' }
+annotate entity ZC_PO_ITEM_PRICE_EDIT with
+{
+  @UI.lineItem: [{ position: 10 }]
+  PurchaseOrderItem;
+
+  @UI.lineItem: [{ position: 20 }]
+  Material;
+
+  @UI.lineItem: [{ position: 30 }]
+  PurchaseOrderItemText;
+
+  @UI.lineItem: [{ position: 40 }]
+  OrderQuantity;
+
+  @UI.lineItem: [{ position: 50 }]
+  PurchaseOrderQuantityUnit;
+
+  @UI.lineItem: [{ position: 60, importance: #HIGH }]
+  @EndUserText.label: '단가 (편집)'
+  NetPriceAmount;
+
+  @UI.lineItem: [{ position: 70 }]
+  DocumentCurrency;
+}
