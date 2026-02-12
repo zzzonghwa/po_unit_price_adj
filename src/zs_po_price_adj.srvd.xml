@@ -3,8 +3,12 @@
  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
   <asx:values>
    <SRVD>
-    <SRVD_NAME>ZS_PO_PRICE_ADJ</SRVD_NAME>
-    <SHORT_DESCR>PO Price Adjustment - Service Definition</SHORT_DESCR>
+    <NAME>ZS_PO_PRICE_ADJ</NAME>
+    <TYPE>SRVD/SRV</TYPE>
+    <DESCRIPTION>PO Price Adjustment - Service Definition</DESCRIPTION>
+    <DESCRIPTION_TEXT_LIMIT>60</DESCRIPTION_TEXT_LIMIT>
+    <LANGUAGE>EN</LANGUAGE>
+    <MASTER_LANGUAGE>EN</MASTER_LANGUAGE>
    </SRVD>
   </asx:values>
  </asx:abap>
