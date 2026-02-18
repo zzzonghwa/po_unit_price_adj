@@ -4,9 +4,9 @@
   <asx:values>
    <SRVB>
     <METADATA>
-     <NAME>ZUI_PO_PRICE_EDIT_V2</NAME>
+     <NAME>ZUI_PO_PRICE_DEMO_V2</NAME>
      <TYPE>SRVB/SVB</TYPE>
-     <DESCRIPTION>PO Price Edit Service V2</DESCRIPTION>
+     <DESCRIPTION>PO Price Demo Service V2</DESCRIPTION>
      <LINKS>
       <item>
        <HREF>versions</HREF>
@@ -14,13 +14,13 @@
        <TITLE>Historic versions</TITLE>
       </item>
       <item>
-       <HREF>/sap/bc/adt/repository/informationsystem/abaplanguageversions?uri=%2Fsap%2Fbc%2Fadt%2Fbusinessservices%2Fbindings%2Fzui_po_price_edit_v2</HREF>
+       <HREF>/sap/bc/adt/repository/informationsystem/abaplanguageversions?uri=%2Fsap%2Fbc%2Fadt%2Fbusinessservices%2Fbindings%2Fzui_po_price_demo_v2</HREF>
        <REL>http://www.sap.com/adt/relations/informationsystem/abaplanguageversions</REL>
        <TYPE>application/vnd.sap.adt.nameditems.v1+xml</TYPE>
        <TITLE>Allowed ABAP language versions</TITLE>
       </item>
       <item>
-       <HREF>/sap/bc/adt/businessservices/odatav2/ZUI_PO_PRICE_EDIT_V2</HREF>
+       <HREF>/sap/bc/adt/businessservices/odatav2/ZUI_PO_PRICE_DEMO_V2</HREF>
        <REL>http://www.sap.com/categories/odatav2</REL>
        <TYPE>application/vnd.sap.adt.businessservices.odatav2.v2+xml</TYPE>
        <TITLE>ODATAV2</TITLE>
@@ -49,21 +49,21 @@
     </METADATA>
     <CONTENT>
      <BIND_TYPE_IMPL>
-      <NAME>ZUI_PO_PRICE_EDIT_V2</NAME>
+      <NAME>ZUI_PO_PRICE_DEMO_V2</NAME>
      </BIND_TYPE_IMPL>
      <BIND_TYPE>ODATA</BIND_TYPE>
      <BIND_TYPE_VERSION>V2</BIND_TYPE_VERSION>
      <SERVICES>
       <item>
-       <SERVICE_NAME>ZUI_PO_PRICE_EDIT_V2</SERVICE_NAME>
+       <SERVICE_NAME>ZUI_PO_PRICE_DEMO_V2</SERVICE_NAME>
        <SERVICE_CONTENT>
         <item>
          <SERVICE_VERSION>0001</SERVICE_VERSION>
          <RELEASE_STATE>NOT_RELEASED</RELEASE_STATE>
          <SRVD_REF>
-          <URI>/sap/bc/adt/ddic/srvd/sources/zsd_po_price_edit</URI>
+          <URI>/sap/bc/adt/ddic/srvd/sources/zsd_po_price_demo_srv</URI>
           <TYPE>SRVD/SRV</TYPE>
-          <NAME>ZSD_PO_PRICE_EDIT</NAME>
+          <NAME>ZSD_PO_PRICE_DEMO_SRV</NAME>
          </SRVD_REF>
          <BIND_TYPE_DATA>
           <CONTENT>

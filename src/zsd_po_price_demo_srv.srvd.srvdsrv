@@ -1,0 +1,4 @@
+@EndUserText.label: 'PO Item Price Service'
+define service ZSD_PO_PRICE_DEMO_SRV {
+  expose ZC_POItemPriceDemo as POItemPrice;
+}

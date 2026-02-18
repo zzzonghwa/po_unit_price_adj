@@ -1,0 +1,22 @@
+projection;
+strict ( 2 );
+
+define behavior for ZC_POItemPriceDemo alias POItemPrice
+use etag
+{
+  /* 키 필드: 항상 읽기 전용 */
+  field ( readonly ) PurchaseOrder, PurchaseOrderItem;
+
+  /* PO Header 필드: 읽기 전용 (Association 경유 데이터) */
+  field ( readonly ) PurchaseOrderType, CompanyCode,
+  PurchasingOrganization, PurchasingGroup,
+  Supplier, CreationDate;
+
+  /* PO Item 필드: 읽기 전용 */
+  field ( readonly )
+  Plant, Material, PurchaseOrderItemText,
+  OrderQuantity, PurchaseOrderQuantityUnit, AccountAssignmentCategory,
+  LocalLastChangedAt;
+
+  use update;
+}

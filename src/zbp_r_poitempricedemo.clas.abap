@@ -1,0 +1,13 @@
+CLASS zbp_r_poitempricedemo DEFINITION
+  PUBLIC
+  FOR BEHAVIOR OF zr_poitempricedemo .
+
+  PUBLIC SECTION.
+  PROTECTED SECTION.
+  PRIVATE SECTION.
+ENDCLASS.
+
+
+
+CLASS zbp_r_poitempricedemo IMPLEMENTATION.
+ENDCLASS.

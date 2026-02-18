@@ -1,0 +1,110 @@
+@Metadata.layer: #CUSTOMER
+@UI: {
+  headerInfo: {
+    typeName: 'PO Item',
+    typeNamePlural: 'PO Items',
+    title: {
+      type: #STANDARD,
+      value: 'PurchaseOrder'
+    },
+    description: {
+      value: 'PurchaseOrderItem'
+    }
+  }
+}
+annotate entity ZC_POItemPriceDemo with
+{
+  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+  /* ── 필터 바 (Selection Fields) ── */
+  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+  @UI.facet: [ { id:            'POItemFacet',
+                 purpose:       #STANDARD,
+                 type:          #IDENTIFICATION_REFERENCE,
+                 label:         'PO Item',
+                 position:      10 }]
+  @UI.selectionField: [{ position: 10 }]
+  @Consumption.valueHelpDefinition: [{
+    entity: { name: 'I_PurchaseOrderAPI01', element: 'PurchaseOrder' }
+  }]
+  @UI.lineItem: [{ position: 10, importance: #HIGH }]
+  @EndUserText.label: 'Purchase Order'
+  PurchaseOrder;
+
+  @UI.selectionField: [{ position: 20 }]
+  @Consumption.valueHelpDefinition: [{
+    entity: { name: 'I_PurchaseOrderType', element: 'PurchaseOrderType' }
+  }]
+  @UI.lineItem: [{ position: 30 }]
+  @EndUserText.label: 'PO Type'
+  PurchaseOrderType;
+
+  @UI.selectionField: [{ position: 30 }]
+  @Consumption.valueHelpDefinition: [{
+    entity: { name: 'I_CompanyCode', element: 'CompanyCode' }
+  }]
+  @UI.lineItem: [{ position: 40 }]
+  @EndUserText.label: 'Company Code'
+  CompanyCode;
+
+  @UI.selectionField: [{ position: 40 }]
+  @Consumption.valueHelpDefinition: [{
+    entity: { name: 'I_Supplier_VH', element: 'Supplier' }
+  }]
+  @UI.lineItem: [{ position: 50 }]
+  @EndUserText.label: 'Supplier'
+  Supplier;
+
+  @UI.selectionField: [{ position: 50 }]
+  @Consumption.valueHelpDefinition: [{
+    entity: { name: 'I_PurchasingOrganization', element: 'PurchasingOrganization' }
+  }]
+  @EndUserText.label: 'Purchasing Org'
+  PurchasingOrganization;
+
+  @UI.selectionField: [{ position: 60 }]
+  @Consumption.valueHelpDefinition: [{
+    entity: { name: 'I_Plant', element: 'Plant' }
+  }]
+  @UI.lineItem: [{ position: 80 }]
+  @UI: { identification: [ { position: 42 } ] }
+  @EndUserText.label: 'Plant'
+  Plant;
+
+  @UI.selectionField: [{ position: 70 }]
+  @Consumption.valueHelpDefinition: [{
+    entity: { name: 'I_MaterialVH', element: 'Material' }
+  }]
+  @UI.lineItem: [{ position: 60 }]
+  @EndUserText.label: 'Material'
+  Material;
+
+  @UI.lineItem: [{ position: 20, importance: #HIGH }]
+  @EndUserText.label: 'Item'
+  PurchaseOrderItem;
+
+  @UI.lineItem: [{ position: 70 }]
+  @EndUserText.label: 'Material Description'
+  PurchaseOrderItemText;
+
+  @UI.lineItem: [{ position: 90 }]
+  @EndUserText.label: 'Order Quantity'
+  OrderQuantity;
+
+  @UI.lineItem: [{ position: 100 }]
+  @EndUserText.label: 'Unit'
+  PurchaseOrderQuantityUnit;
+
+  /* ★ 편집 대상 컬럼: NetPriceAmount ★ */
+  @UI.lineItem: [{ position: 110, importance: #HIGH }]
+  @UI: { identification: [ { position: 42 } ] }
+  @EndUserText.label: 'Net Price'
+  NetPriceAmount;
+
+  @UI.lineItem: [{ position: 120 }]
+  @EndUserText.label: 'Currency'
+  DocumentCurrency;
+
+  @UI.hidden: false
+  LocalLastChangedAt;
+
+}

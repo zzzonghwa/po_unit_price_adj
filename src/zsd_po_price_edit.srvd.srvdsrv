@@ -1,5 +1,0 @@
-@EndUserText.label: 'PO Price Edit Service'
-define service ZSD_PO_PRICE_EDIT {
-  expose ZC_PO_PRICE_EDIT as POHeader;
-  expose ZC_PO_ITEM_PRICE_EDIT as POItem;
-}

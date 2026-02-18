@@ -3,12 +3,12 @@
  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
   <asx:values>
    <SRVD>
-    <NAME>ZSD_PO_PRICE_EDIT</NAME>
+    <NAME>ZSD_PO_PRICE_DEMO_SRV</NAME>
     <TYPE>SRVD/SRV</TYPE>
-    <DESCRIPTION>service</DESCRIPTION>
+    <DESCRIPTION>PO Item Price Service</DESCRIPTION>
     <LANGUAGE>KO</LANGUAGE>
     <MASTER_LANGUAGE>KO</MASTER_LANGUAGE>
-    <SOURCE_URI>./zsd_po_price_edit/source/main</SOURCE_URI>
+    <SOURCE_URI>./zsd_po_price_demo_srv/source/main</SOURCE_URI>
     <SOURCE_TYPE>ABAP_SOURCE</SOURCE_TYPE>
     <SOURCE_ORIGIN_DESCRIPTION>ABAP Development Tools</SOURCE_ORIGIN_DESCRIPTION>
     <SRVD_SOURCE_TYPE>S</SRVD_SOURCE_TYPE>
