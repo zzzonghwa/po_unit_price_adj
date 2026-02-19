@@ -3,6 +3,9 @@
 SAP S/4 HANA 2022 (Release 757) 환경에서 구매 오더(Purchase Order) 아이템의 단가(Net Price)를 조회하고 수정하는 **RAP 기반 Fiori Elements 애플리케이션**입니다.
 
 ---
+## 프로그램 시연
+
+![프로그램 시연](./assets/프로그램시연.gif)
 
 ## 개요
 
