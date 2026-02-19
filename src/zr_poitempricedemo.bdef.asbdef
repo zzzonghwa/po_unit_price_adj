@@ -4,7 +4,7 @@ strict ( 2 );
 define behavior for ZR_POItemPriceDemo alias POItemPrice
 lock master
 authorization master ( global )
-etag master LocalLastChangedAt  // ← 변경: LastChangeDateTime → LocalLastChangedAt
+// etag master LocalLastChangedAt  // ← 변경: LastChangeDateTime → LocalLastChangedAt
 {
   /* 키 필드: 항상 읽기 전용 */
   field ( readonly ) PurchaseOrder, PurchaseOrderItem;
@@ -17,8 +17,7 @@ etag master LocalLastChangedAt  // ← 변경: LastChangeDateTime → LocalLastC
   /* PO Item 필드: 읽기 전용 */
   field ( readonly )
   Plant, Material, PurchaseOrderItemText,
-  OrderQuantity, PurchaseOrderQuantityUnit, AccountAssignmentCategory,
-  LocalLastChangedAt;
+  OrderQuantity, PurchaseOrderQuantityUnit, AccountAssignmentCategory;
 
   update ( features : instance );
 

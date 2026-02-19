@@ -29,7 +29,6 @@ define root view entity ZC_POItemPriceDemo
       DocumentCurrency,
 
       AccountAssignmentCategory,
-      LocalLastChangedAt, // ← 변경: LastChangeDateTime → LocalLastChangedAt
 
       /* Association */
       _PurchaseOrder

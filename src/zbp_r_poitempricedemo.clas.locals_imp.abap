@@ -40,7 +40,7 @@ CLASS lhc_poitemprice IMPLEMENTATION.
     ENTITY POItemPrice
     UPDATE FIELDS ( NetPriceAmount )
     WITH VALUE #( FOR key IN keys (
-      %tky           = key-%tky
+      %tky = key-%tky
     ) ).
 
   ENDMETHOD.

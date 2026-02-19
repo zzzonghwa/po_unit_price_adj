@@ -104,7 +104,4 @@ annotate entity ZC_POItemPriceDemo with
   @EndUserText.label: 'Currency'
   DocumentCurrency;
 
-  @UI.hidden: false
-  LocalLastChangedAt;
-
 }

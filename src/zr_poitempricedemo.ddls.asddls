@@ -5,7 +5,7 @@ define root view entity ZR_POItemPriceDemo
   association [1] to I_PurchaseOrderAPI01 as _PurchaseOrder on _PurchaseOrder.PurchaseOrder = _Item.PurchaseOrder
 {
   key _Item.PurchaseOrder,
-  key _Item.PurchaseOrderItem           as PurchaseOrderItem,
+  key _Item.PurchaseOrderItem as PurchaseOrderItem,
 
       /* PO Header 필드 (조회/필터 전용) */
       _PurchaseOrder.PurchaseOrderType,
@@ -24,14 +24,17 @@ define root view entity ZR_POItemPriceDemo
 
       /* 편집 대상 필드 */
       // @Semantics.amount.currencyCode: 'DocumentCurrency'
-      _Item.NetPriceAmount              as NetPriceAmount,
+      _Item.NetPriceAmount    as NetPriceAmount,
       _Item.DocumentCurrency,
 
       _Item.AccountAssignmentCategory,
 
       /* ETag용 변경 타임스탬프 - Local Generated */
-      @Semantics.systemDateTime.localInstanceLastChangedAt: true
-      _PurchaseOrder.LastChangeDateTime as LocalLastChangedAt,
+//      @Semantics.systemDateTime.localInstanceLastChangedAt: true
+//      cast(
+//        cast( _Item.PurchaseOrderItem as abap.dec(21,7) ) + _PurchaseOrder.LastChangeDateTime
+//        as timestampl
+//      )                       as LocalLastChangedAt,
 
       /* Association */
       _PurchaseOrder

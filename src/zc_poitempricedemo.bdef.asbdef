@@ -15,8 +15,7 @@ use etag
   /* PO Item 필드: 읽기 전용 */
   field ( readonly )
   Plant, Material, PurchaseOrderItemText,
-  OrderQuantity, PurchaseOrderQuantityUnit, AccountAssignmentCategory,
-  LocalLastChangedAt;
+  OrderQuantity, PurchaseOrderQuantityUnit, AccountAssignmentCategory;
 
   use update;
 }
