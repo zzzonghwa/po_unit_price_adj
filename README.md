@@ -1,12 +1,12 @@
-# ZEN_PO_DEMO — PO 단가 일괄 조정 애플리케이션
+# ZEN_PO_DEMO — PO 단가 변경 애플리케이션
 
-SAP S/4 HANA 2022 (Release 757) 환경에서 구매 오더(Purchase Order)의 단가를 조회·편집·일괄 조정하는 **RAP 기반 Fiori Elements 애플리케이션**입니다.
+SAP S/4 HANA 2022 (Release 757) 환경에서 구매 오더(Purchase Order) 아이템의 단가(Net Price)를 조회하고 수정하는 **RAP 기반 Fiori Elements 애플리케이션**입니다.
 
 ---
 
 ## 개요
 
-기존 SAP 표준 트랜잭션(ME22N)은 PO 단건 수정만 지원합니다. 이 애플리케이션은 다수의 PO 아이템에 대해 **퍼센트(%) 기반 단가 일괄 조정**과 **미리보기(Preview)** 기능을 제공하여 구매 담당자의 업무 효율을 높입니다.
+기존 SAP 표준 트랜잭션(ME22N)은 PO 단건 수정만 지원합니다. 이 애플리케이션은 List Report 화면에서 여러 PO 아이템을 한 번에 조회하고, 인라인 편집(Inline Edit)으로 단가를 직접 수정하여 저장할 수 있습니다.
 
 ---
 
@@ -15,50 +15,47 @@ SAP S/4 HANA 2022 (Release 757) 환경에서 구매 오더(Purchase Order)의 �
 | 항목 | 내용 |
 |------|------|
 | 플랫폼 | SAP S/4 HANA 2022 (Release 757) |
-| 개발 방식 | ABAP RAP (RESTful Application Programming Model) |
-| UI 프레임워크 | SAP Fiori Elements (List Report + Object Page) |
-| OData 버전 | V2 (단건 편집) / V4 (일괄 조정) |
+| 개발 방식 | ABAP RAP (Unmanaged) |
+| UI 프레임워크 | SAP Fiori Elements (List Report) |
+| OData 버전 | V2 |
 | 코드 관리 | abapGit |
 
 ---
 
 ## 주요 기능
 
-### 1. PO 목록 조회 및 필터링
-- PO 번호, 자재, 공급업체, 구매 조직, 납기일 등 다양한 조건으로 필터링
-- PO Number / Supplier 시맨틱 네비게이션 지원
+### 1. PO 아이템 목록 조회 및 필터링
+- PO 번호, PO 유형, 회사 코드, 공급업체, 구매 조직, 플랜트, 자재 등 7개 조건으로 필터링
+- 각 필드에 Value Help 제공 (I_PurchaseOrderAPI01, I_Supplier_VH, I_Plant, I_MaterialVH 등)
 
-### 2. PO 단가 직접 편집 (단건)
-- 개별 PO 아이템의 `NetPriceAmount`(단가) 직접 수정
-- 저장 시 0 초과 여부 검증 (`validatePrice`)
-- `BAPI_PO_CHANGE` 호출로 실제 PO 반영
+### 2. 단가 인라인 편집
+- List Report에서 `NetPriceAmount` 필드를 직접 수정
+- 수정된 데이터는 내부 버퍼(`lcl_buffer`)에 보관 후 저장 시 일괄 처리
 
-### 3. PO 단가 일괄 % 조정
-- 선택된 PO 아이템에 퍼센트를 입력하여 단가 일괄 변경
-- **미리보기(Preview)**: 변경 금액을 노란색으로 확인 후 저장 결정
-- **실제 적용(Adjust)**: `cl_po_processing_api`를 통해 PO 업데이트
-- 성공(녹색) / 오류(빨간색) 상태를 Criticality 색상으로 시각화
+### 3. BAPI 기반 저장
+- 저장 시 `BAPI_PO_CHANGE`를 PO 번호별로 호출하여 실제 반영
+- BAPI 오류 발생 시 RAP 오류 메시지로 사용자에게 피드백
 
 ---
 
 ## 아키텍처
 
-두 가지 독립적인 RAP 스택으로 구성됩니다.
-
 ```
-[단건 편집 - OData V2]
-ZUI_PO_PRICE_EDIT_V2 (Service Binding)
-  └── ZSD_PO_PRICE_EDIT (Service Definition)
-        └── ZC_PO_PRICE_EDIT / ZC_PO_ITEM_PRICE_EDIT (Projection)
-              └── ZI_PO_PRICE_EDIT / ZI_PO_ITEM_PRICE_EDIT (Interface)
-                    └── I_PurchaseOrderAPI01 / I_PurchaseOrderItemAPI01
-                          └── BAPI_PO_CHANGE (Unmanaged Save)
-
-[일괄 조정 - OData V4]
-ZS_PO_PRICE_ADJ_O4 (Service Binding)
-  └── ZC_PO_PRICE_ADJ_I (Projection + Actions)
-        └── I_PurchaseOrderItem / I_PurchaseOrder
-              └── cl_po_processing_api (Managed Save)
+[Fiori Elements - List Report (OData V2)]
+        ↓
+ZUI_PO_PRICE_DEMO_V2 (Service Binding - OData V2)
+        ↓
+ZSD_PO_PRICE_DEMO_SRV (Service Definition)
+        ↓
+ZC_POItemPriceDemo (Projection View / BDEF)
+        ↓
+ZR_POItemPriceDemo (Interface Root View / BDEF)
+        ↓
+I_PurchaseOrderItemAPI01 + I_PurchaseOrderAPI01 (SAP Standard CDS)
+        ↓
+ZBP_R_POItemPriceDemo (Behavior Pool - Unmanaged)
+        ↓
+BAPI_PO_CHANGE (Save 처리)
 ```
 
 ---
@@ -67,42 +64,47 @@ ZS_PO_PRICE_ADJ_O4 (Service Binding)
 
 | 오브젝트 | 종류 | 역할 |
 |----------|------|------|
-| `ZI_PO_PRICE_EDIT` | CDS Root View Entity | PO 헤더 인터페이스 뷰 |
-| `ZI_PO_ITEM_PRICE_EDIT` | CDS View Entity | PO 아이템 인터페이스 뷰 |
-| `ZC_PO_PRICE_EDIT` | CDS Projection View | PO 헤더 프로젝션 뷰 |
-| `ZC_PO_ITEM_PRICE_EDIT` | CDS Projection View | PO 아이템 프로젝션 뷰 |
-| `ZBP_I_PO_PRICE_EDIT` | Behavior Pool | 단가 검증(validatePrice) 및 BAPI 저장 |
-| `ZC_PO_PRICE_ADJ_I` | CDS View + Annotations | 단가 조정 복합 뷰 |
-| `ZBP_C_PO_PRICE_ADJ_I` | Behavior Pool | adjustPrice / previewAdjustment 액션 |
-| `ZCL_TEST_PO_PRICE_ADJ` | ABAP Unit Test | 단가 조정 단위 테스트 |
+| `ZR_POItemPriceDemo` | CDS Root View Entity | PO 아이템 인터페이스 뷰 (I_PurchaseOrderItemAPI01 기반) |
+| `ZC_POItemPriceDemo` | CDS Projection View | UI 노출용 프로젝션 뷰 |
+| `ZR_POItemPriceDemo` (BDEF) | Behavior Definition | update, action(changePrice), lock, etag 정의 |
+| `ZC_POItemPriceDemo` (BDEF) | Behavior Definition | 프로젝션 동작 정의 (use update) |
+| `ZBP_R_POItemPriceDemo` | Behavior Pool | update/read/lock 핸들러 및 save 구현 |
+| `ZSD_PO_PRICE_DEMO_SRV` | Service Definition | ZC_POItemPriceDemo → POItemPrice 노출 |
+| `ZUI_PO_PRICE_DEMO_V2` | Service Binding (V2) | OData V2 서비스 바인딩 |
 
 ---
 
-## 단가 조정 로직
+## 데이터 모델
 
-```
-새 단가 = 현재 단가 × (1 + 조정% / 100)
-소수점 2자리 반올림 적용
-```
+`ZR_POItemPriceDemo`는 `I_PurchaseOrderItemAPI01`(PO 아이템)과 `I_PurchaseOrderAPI01`(PO 헤더)를 조인하여 구성됩니다.
 
-| 조정 상태 | Status 값 | 색상 |
-|-----------|-----------|------|
-| 미리보기 | `P` | 노란색 (Criticality 2) |
-| 성공 | `S` | 녹색 (Criticality 3) |
-| 오류 | `E` | 빨간색 (Criticality 1) |
+| 필드 | 편집 가능 여부 | 비고 |
+|------|--------------|------|
+| PurchaseOrder | 읽기 전용 | Key |
+| PurchaseOrderItem | 읽기 전용 | Key |
+| PurchaseOrderType | 읽기 전용 | 헤더 |
+| CompanyCode | 읽기 전용 | 헤더 |
+| PurchasingOrganization | 읽기 전용 | 헤더 |
+| PurchasingGroup | 읽기 전용 | 헤더 |
+| Supplier | 읽기 전용 | 헤더 |
+| CreationDate | 읽기 전용 | 헤더 |
+| Material | 읽기 전용 | 아이템 |
+| Plant | 읽기 전용 | 아이템 |
+| OrderQuantity | 읽기 전용 | 아이템 |
+| PurchaseOrderQuantityUnit | 읽기 전용 | 아이템 |
+| **NetPriceAmount** | **편집 가능** | 아이템 |
+| DocumentCurrency | 읽기 전용 | 아이템 |
+| LocalLastChangedAt | 읽기 전용 | ETag 기준 필드 |
 
 ---
 
-## 테스트
+## 저장 처리 흐름 (Unmanaged Save)
 
-`ZCL_TEST_PO_PRICE_ADJ` ABAP Unit Test 클래스가 포함되어 있습니다.
-
-| 테스트 메서드 | 내용 |
-|--------------|------|
-| `test_preview_adjustment` | 10% 인상 미리보기 (100 → 110) |
-| `test_adjust_price_test_run` | 5% 인상 테스트 실행 - DB 미변경 확인 |
-| `test_adjust_price_actual` | -5% 인하 실제 적용 (100 → 95) |
-| `test_adjust_price_not_selected` | 미선택 아이템 오류 처리 확인 |
+1. 사용자가 `NetPriceAmount` 수정 후 저장 요청
+2. `update` 핸들러: 변경 데이터를 `lcl_buffer`에 적재
+3. `save` 핸들러: 버퍼를 PO 번호별로 그룹화 후 `BAPI_PO_CHANGE` 호출
+4. BAPI 오류 발생 시 RAP 오류 메시지 반환
+5. `cleanup` 핸들러: 트랜잭션 종료 시 버퍼 초기화
 
 ---
 
@@ -111,6 +113,6 @@ ZS_PO_PRICE_ADJ_O4 (Service Binding)
 1. SAP 시스템에서 abapGit 실행
 2. 새 저장소 연결: 이 저장소 URL 입력
 3. 패키지 지정 후 Pull
-4. Service Binding 활성화 (`ZUI_PO_PRICE_EDIT_V2`, `ZS_PO_PRICE_ADJ_O4`)
+4. Service Binding 활성화: `ZUI_PO_PRICE_DEMO_V2`
 
 > 자세한 기능 명세는 [PRD.md](./PRD.md)를 참고하세요.
