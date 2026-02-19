@@ -1,6 +1,0 @@
-@@EndUserText.label: 'PO Price Adjustment'
-define service ZS_PO_PRICE_ADJ_O4 {
-  publish in OData V4 as Z_PO_PRICE_ADJ_O4
-    expose ZC_PO_PRICE_ADJ_I as POPriceAdjustment;
-    expose ZI_PO_PRICE_ADJ_PARAM as AdjustmentParameter;
-}
