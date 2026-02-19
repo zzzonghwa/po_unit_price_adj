@@ -16,8 +16,8 @@ SAP S/4 HANA 2022 (Release 757) 환경에서 구매 오더(Purchase Order)의 �
 |------|------|
 | 플랫폼 | SAP S/4 HANA 2022 (Release 757) |
 | 개발 방식 | ABAP RAP (RESTful Application Programming Model) |
-| UI 프레임워크 | SAP Fiori Elements |
-| OData 버전 | V2 |
+| UI 프레임워크 | SAP Fiori Elements (List Report + Object Page) |
+| OData 버전 | V2 (단건 편집) / V4 (일괄 조정) |
 | 코드 관리 | abapGit |
 
 ---
@@ -25,7 +25,7 @@ SAP S/4 HANA 2022 (Release 757) 환경에서 구매 오더(Purchase Order)의 �
 ## 주요 기능
 
 ### 1. PO 목록 조회 및 필터링
-- PO 번호, 자재, 공급업체, 구매 조직, 납기일 등 8개 조건으로 필터링
+- PO 번호, 자재, 공급업체, 구매 조직, 납기일 등 다양한 조건으로 필터링
 - PO Number / Supplier 시맨틱 네비게이션 지원
 
 ### 2. PO 단가 직접 편집 (단건)
@@ -67,10 +67,10 @@ ZS_PO_PRICE_ADJ_O4 (Service Binding)
 
 | 오브젝트 | 종류 | 역할 |
 |----------|------|------|
-| `ZI_PO_PRICE_EDIT` | CDS Root View | PO 헤더 인터페이스 뷰 |
-| `ZI_PO_ITEM_PRICE_EDIT` | CDS View | PO 아이템 인터페이스 뷰 |
-| `ZC_PO_PRICE_EDIT` | CDS Projection | PO 헤더 프로젝션 뷰 |
-| `ZC_PO_ITEM_PRICE_EDIT` | CDS Projection | PO 아이템 프로젝션 뷰 |
+| `ZI_PO_PRICE_EDIT` | CDS Root View Entity | PO 헤더 인터페이스 뷰 |
+| `ZI_PO_ITEM_PRICE_EDIT` | CDS View Entity | PO 아이템 인터페이스 뷰 |
+| `ZC_PO_PRICE_EDIT` | CDS Projection View | PO 헤더 프로젝션 뷰 |
+| `ZC_PO_ITEM_PRICE_EDIT` | CDS Projection View | PO 아이템 프로젝션 뷰 |
 | `ZBP_I_PO_PRICE_EDIT` | Behavior Pool | 단가 검증(validatePrice) 및 BAPI 저장 |
 | `ZC_PO_PRICE_ADJ_I` | CDS View + Annotations | 단가 조정 복합 뷰 |
 | `ZBP_C_PO_PRICE_ADJ_I` | Behavior Pool | adjustPrice / previewAdjustment 액션 |
@@ -97,8 +97,8 @@ ZS_PO_PRICE_ADJ_O4 (Service Binding)
 
 `ZCL_TEST_PO_PRICE_ADJ` ABAP Unit Test 클래스가 포함되어 있습니다.
 
-| 테스트 | 내용 |
-|--------|------|
+| 테스트 메서드 | 내용 |
+|--------------|------|
 | `test_preview_adjustment` | 10% 인상 미리보기 (100 → 110) |
 | `test_adjust_price_test_run` | 5% 인상 테스트 실행 - DB 미변경 확인 |
 | `test_adjust_price_actual` | -5% 인하 실제 적용 (100 → 95) |

@@ -18,7 +18,7 @@ SAP S/4 HANA 2022 (Release 757) 환경에서 구매 오더(Purchase Order)의 �
 | 플랫폼 | SAP S/4 HANA 2022 (Release 757) |
 | 개발 방식 | ABAP RAP (RESTful Application Programming Model) |
 | UI 프레임워크 | SAP Fiori Elements (List Report + Object Page) |
-| OData 버전 | OData V2 |
+| OData 버전 | V2 (단건 편집) / V4 (일괄 조정) |
 | 코드 관리 | abapGit |
 
 ---
@@ -107,7 +107,7 @@ cl_po_processing_api (Save 처리 - Managed API)
 | 10 | PO Number | HIGH |
 | 20 | PO Item | HIGH |
 | 30 | Material | - |
-| 40 | Net Price Amount | HIGH (criticality 색상 표시) |
+| 40 | Net Price Amount | HIGH (Criticality 색상 표시) |
 | 50 | PO Creation Date | - |
 | 60 | Supplier | - |
 | 70 | Purchasing Organization | - |
@@ -142,8 +142,8 @@ cl_po_processing_api (Save 처리 - Managed API)
 
 **아이템 정보**:
 
-| 필드 | 편집 가능 | 필수 |
-|------|-----------|------|
+| 필드 | 편집 가능 여부 | 필수 여부 |
+|------|---------------|-----------|
 | PurchaseOrderItem | 읽기 전용 | - |
 | Material | 읽기 전용 | - |
 | PurchaseOrderItemText | 읽기 전용 | - |
@@ -218,7 +218,7 @@ cl_po_processing_api (Save 처리 - Managed API)
 단가 조정 상태에 따라 `NetPriceAmount` 컬럼에 색상을 시각적으로 표시한다.
 
 | Criticality 값 | 색상 | 의미 |
-|---------------|------|------|
+|----------------|------|------|
 | 0 | 기본 | 미처리 |
 | 1 | 빨간색 | 오류 (Error) |
 | 2 | 노란색 | 미리보기 (Preview) |
@@ -232,7 +232,7 @@ cl_po_processing_api (Save 처리 - Managed API)
 
 - `ZI_PO_PRICE_EDIT`: `@AccessControl.authorizationCheck: #CHECK` 적용
 - `ZI_PO_ITEM_PRICE_EDIT`: `@AccessControl.authorizationCheck: #CHECK` 적용
-- `ZC_PO_PRICE_ADJ_I`: `@AccessControl.authorizationCheck: #NOT_REQUIRED` (조정 뷰)
+- `ZC_PO_PRICE_ADJ_I`: `@AccessControl.authorizationCheck: #NOT_REQUIRED` (조정 뷰, 운영 전 검토 필요)
 - 헤더 레벨: `authorization master (global)` 설정
 - 아이템 레벨: `authorization dependent by _Header` 설정
 - 서비스 바인딩(`ZUI_PO_PRICE_EDIT_V2`) 접근 시 `S_SERVICE` 권한 오브젝트 검사
@@ -296,10 +296,10 @@ PO Price Adjustment (Collection)
 
 ## 7. OData 서비스 구성
 
-| 서비스 | 버전 | 노출 엔티티 |
-|--------|------|------------|
-| `ZSD_PO_PRICE_EDIT` | V2 (`ZUI_PO_PRICE_EDIT_V2`) | POHeader, POItem |
-| `ZS_PO_PRICE_ADJ_O4` | V4 | POPriceAdjustment, AdjustmentParameter |
+| 서비스 | OData 버전 | 서비스 바인딩 | 노출 엔티티 |
+|--------|-----------|--------------|------------|
+| `ZSD_PO_PRICE_EDIT` | V2 | `ZUI_PO_PRICE_EDIT_V2` | POHeader, POItem |
+| `ZS_PO_PRICE_ADJ_O4` | V4 | `ZS_PO_PRICE_ADJ_O4` | POPriceAdjustment, AdjustmentParameter |
 
 ---
 
@@ -321,9 +321,9 @@ PO Price Adjustment (Collection)
 
 ## 9. 제약 사항 및 한계
 
-1. **테스트 더블 미구현**: `zcl_test_po_price_adj`에서 `cl_po_processing_api` 모킹이 개념적 수준으로만 구현되어 있어 완전한 단위 테스트 자동화에 한계가 있음
+1. **테스트 더블 미구현**: `ZCL_TEST_PO_PRICE_ADJ`에서 `cl_po_processing_api` 모킹이 개념적 수준으로만 구현되어 있어 완전한 단위 테스트 자동화에 한계가 있음
 2. **통화 소수점 고정**: 단가 반올림 시 통화별 소수점 자릿수를 동적으로 처리하지 않고 2자리로 고정
-3. **아이템 선택 메커니즘**: `IsSelected` 필드가 트랜지언트 필드로 구현되어 있어, UI에서 선택 상태를 어떻게 서버에 전달하는지에 대한 별도 구현 필요
+3. **아이템 선택 메커니즘**: `IsSelected` 필드가 트랜지언트 필드로 구현되어 있어, UI에서 선택 상태를 서버에 전달하는 별도 구현 필요
 4. **Authorization**: `ZC_PO_PRICE_ADJ_I`에 `#NOT_REQUIRED` 설정으로 권한 검사가 생략되어 있어 프로덕션 적용 전 권한 검토 필요
 
 ---
